@@ -18,22 +18,22 @@ set naics_code = CASE
 					THEN 92
 					WHEN industry_id = 'ff45bb0b-b962-4b37-816a-9bcb69151b5f'
 					THEN 62
-					--WHEN industry_id = '602a2eef-3aa6-4400-a4b7-74788902ff60'
-					--THEN 31
+					WHEN industry_id = '602a2eef-3aa6-4400-a4b7-74788902ff60'
+					THEN 31
 					WHEN industry_id = '88fc4fef-7ba6-4f10-b538-63a121bc56fe'
 					THEN 512
 					WHEN industry_id = 'df1ebcf6-12b4-4c09-97c6-b722a524cd99'
 					THEN 813219
 					WHEN industry_id = '5656f706-066a-4bcd-9e3d-4e54cffec1dd'
 					THEN 23
-					--WHEN industry_id = 'b19c5736-4b04-4768-b095-e97b4e93b867'
-					--THEN 44
+					WHEN industry_id = 'b19c5736-4b04-4768-b095-e97b4e93b867'
+					THEN 44
 					WHEN industry_id = '2793f45a-06b3-4cc1-8de0-e4db4bbeebe6'
 					THEN 51
 					WHEN industry_id = 'ca6aaade-3662-48a0-a4c2-6d42121761e0'
 					THEN 517
-					--WHEN industry_id = '663ecfeb-4224-4647-a0cc-5525bad573b4'
-					--THEN 48
+					WHEN industry_id = '663ecfeb-4224-4647-a0cc-5525bad573b4'
+					THEN 48
 					WHEN industry_id = '562445a1-a0dc-4ee0-afa3-91209ad8424e'
 					THEN 72
 					WHEN industry_id = '9a1e8bfd-d34d-48a7-808d-17465ad72840'
