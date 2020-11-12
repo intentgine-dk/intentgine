@@ -3,7 +3,6 @@ SET contact_data_status = 'Production'
 FROM ig_production.contact as t2
 WHERE
     t1.contact_data_status = 'Reverify'
-    AND t1.datasource = '2019_Data'
 	AND t1.contact_linkedin_url = t2.contact_linkedin_url
 	AND t1.email_address = t2.email_address
 	AND t1.first_name = t2.first_name

@@ -50,7 +50,7 @@ def run_delivered_leads(gdrive_dir):
             #df['campaign_id'] = query.get_campaign_id(df['campaign'], df['client_id'])
             df['campaign_id'] = '1234'
 
-            df.to_sql('delivered_leads', connection, schema='ig_test', if_exists='append', index=False, index_label=None)
+            df.to_sql('delivered_leads', connection, schema='ig_test',  if_exists='append', index=False, index_label=None)
 
             os.remove(raw_file)
         
