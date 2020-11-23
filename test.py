@@ -1,10 +1,25 @@
-import pandas as pd
-from func import db, gdrive, tools, query, date_func
+from googlesearch import search
+import os, time
 
-df = tools.file_to_df('{20-1174-1 Workday Customer FIN LE FY21 Content Syndication} 702_Leads 21092020.xls')
 
-for key in df.columns:
-    if len(df[key].value_counts()) == 0:
-        del df[key]
+input_file = open(os.getcwd() + "\\files\\input\\company_name.csv", "r", encoding='utf8')
+output_file = open(os.getcwd() + "\\files\\output\\company_linkedin_url.csv", "w")
 
-print(df.columns)
+for company_name in input_file:
+    print(str(company_name).strip())
+    res = search("{} Linkedin -ph.linkedin.com".format(company_name))
+    
+    c_list = list()
+    for i in res:
+        if "/company/" in i:
+            c_list.append(i)
+
+    if len(c_list) != 0:
+        output_file.write("{0} | {1}\n".format(company_name.strip(), c_list[0]))
+    else:
+        output_file.write("{0} |\n".format(company_name.strip()))
+
+    time.sleep(5)
+
+input_file.close()
+output_file.close()
