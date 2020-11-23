@@ -8,9 +8,9 @@ cursor, connection = db.rds_connect("aurora")
 query_search =  """
                 select 
                     company_name 
-                    from public.search_linkedin 
-                    where 
-                company_linkedin_url is null limit 5;
+                    from public.search_linkedin
+                where
+                    company_linkedin_url is null
                 """
 cursor.execute(query_search)
 result = cursor.fetchall()
@@ -22,7 +22,6 @@ for res in result:
     company_name = str(res[0])
     print(company_name)
     search_results = search("{} Linkedin -ph.linkedin.com".format(company_name))
-    print(search_results)
 
     for linkedin_url in search_results:
         if "linkedin.com/company/" in linkedin_url:
@@ -30,18 +29,26 @@ for res in result:
 
     if len(c_list) != 0:
         company_linkedin_url = c_list[0]
-        output_file.write("{0} | {1}\n".format(company_name.strip(), c_list[0]))
+        print(company_linkedin_url)
+        query_update =  """
+                        update public.search_linkedin as t1 
+                        set company_linkedin_url = \'{}\' 
+                        where 
+                            company_linkedin_url is null 
+                            and upper(trim(company_name)) = \'{}\'
+                        """.format(company_linkedin_url, company_name)
+        cursor.execute(query_update)
+        connection.commit()
+    else:
+        query_update =  """
+                        update public.search_linkedin as t1 
+                        set company_linkedin_url = 'NULL' 
+                        where 
+                            company_linkedin_url is null 
+                            and upper(trim(company_name)) = \'{}\'
+                        """.format(company_name)
+        cursor.execute(query_update)
+        connection.commit()
     
-    '''
-    query_update =  """
-                    update public.search_linkedin as t1
-                    set company_linkedin_url = {0}
-                    where
-                        company_linkedin_url is null
-                        and company_name = {1}
-                    """.format(company_linkedin_url, company_name)
-
-    cursor.execute(query_update)
-    '''
-    time.sleep(2)
+    time.sleep(3)
     
