@@ -15,13 +15,10 @@ for company_name in input_file:
             c_list.append(i)
 
     if len(c_list) != 0:
+        company_linkedin_url = c_list[0]
         output_file.write("{0} | {1}\n".format(company_name.strip(), c_list[0]))
 
     time.sleep(2)
 
 input_file.close()
 output_file.close()
-
-
-query_search = "select company_name from public.search_linkedin where company_linkedin_url is null;"
-query_update = "update public.search_linkedin"
