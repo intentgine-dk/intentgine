@@ -51,4 +51,3 @@ for res in result:
         connection.commit()
     
     time.sleep(3)
-    
