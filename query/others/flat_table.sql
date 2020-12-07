@@ -38,9 +38,9 @@ INNER JOIN ig_master.location locc
 	ON cmp.location_id = loc.location_id
 INNER JOIN ig_master.department dpt
 	ON cont.department_id = dpt.department_id
-INNER JOIN ig_master.job_function jf
+LEFT JOIN ig_master.job_function jf
 	ON cont.job_function_id = jf.job_function_id
-INNER JOIN ig_master.job_role jr
+LEFT JOIN ig_master.job_role jr
 	ON cont.job_role_id = jr.job_role_id
 INNER JOIN ig_master.seniority sen
 	ON cont.seniority_id = sen.seniority_id
@@ -50,6 +50,6 @@ INNER JOIN ig_master.revenue_range as rev
 	ON cmp.revenue_range_id = rev.revenue_range_id
 INNER JOIN ig_master.industry ind
 	ON cmp.industry_id = ind.industry_id
-INNER JOIN ig_master.subindustry sub
+LEFT JOIN ig_master.subindustry sub
 	ON cmp.subindustry_id = sub.subindustry_id
 ;
