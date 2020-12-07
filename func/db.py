@@ -19,7 +19,7 @@ def config_parser(conf, section):
     return db
 
 def db_connect(section):
-    db_conf = os.getcwd() + "\\files\\db\\" + "conf.ini"
+    db_conf = "C:\\Users\\DonnV\\Documents\\intentgine\\files\\db\\conf.ini"
     db_param = config_parser(db_conf, section)
     connection_str = "postgresql://{0}:{1}@{2}/{3}".format(
         db_param['user'], db_param['password'], db_param['host'], db_param['database']
@@ -30,7 +30,7 @@ def db_connect(section):
     return cxn, engine
 
 def rds_connect(section):
-    db_conf = os.getcwd() + "\\files\\db\\" + "conf.ini"
+    db_conf = "C:\\Users\\DonnV\\Documents\\intentgine\\files\\db\\conf.ini"
     db_param = config_parser(db_conf, section)
 
     connection = psycopg2.connect(
@@ -46,7 +46,7 @@ def rds_connect(section):
     return cursor, connection
 
 def load_conf(section):
-    conf = os.getcwd() + "\\files\\drive\\" + "conf.ini"
+    conf = "C:\\Users\\DonnV\\Documents\\intentgine\\files\\drive\\conf.ini"
     param = config_parser(conf, section)
 
     return param
