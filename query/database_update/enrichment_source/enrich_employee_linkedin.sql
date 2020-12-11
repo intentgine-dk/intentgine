@@ -23,7 +23,7 @@ where
 	t1.company_data_status = 'Reverify'
 	and t1.employee_size_id is null
 	and t2.company_employees is not null
-	and t2.company_employees != 0
+	and t2.company_employees != '0'
 	and t1.company_linkedin_url is not null
 	and t1.company_linkedin_url != ''
 	and trim(t1.company_linkedin_url) != '' 

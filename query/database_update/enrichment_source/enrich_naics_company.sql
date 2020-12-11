@@ -7,4 +7,4 @@ where
 	and t2.naics_code1 is not null
 	and t2.naics_code1 != 0
 	and upper(trim(t1.company_name)) = upper(trim(t2.company_name))
-	and t2.naics_code1 in (select naics_code in ig_master.naics_code);
+	and t2.naics_code1 in (select naics_code from ig_master.naics_code);

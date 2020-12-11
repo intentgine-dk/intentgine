@@ -23,5 +23,5 @@ where
 	t1.company_data_status = 'Reverify'
 	and t1.employee_size_id is null
 	and t2.company_employees is not null
-	and t2.company_employees != 0
+	and t2.company_employees != '0'
 	and upper(trim(t1.company_name)) = upper(trim(t2.company_name));
