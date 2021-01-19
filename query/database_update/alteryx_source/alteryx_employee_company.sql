@@ -16,12 +16,11 @@ set employee_size_id = case
 						then '47955320-a21e-4ea9-9905-84f519477fd0'::uuid
 						when t2.acc_emp_size_range = 'more than 10,000'
 						then '432b4eeb-a106-48b0-8b29-ad07153db437'::uuid
-						else null
+						else t1.employee_size_id
 					end	
 from {0} as t2
 where
 	t1.company_data_status = 'Reverify'
-	and t1.employee_size_id is null
 	and t2.acc_emp_size_range is not null
 	and t2.acc_emp_size_range != ''
 	and trim(t2.acc_emp_size_range) != ''

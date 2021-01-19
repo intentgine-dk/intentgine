@@ -1,49 +1,43 @@
+import os
 import requests
-import json
-from bs4 import BeautifulSoup
-from func import db
+from xlrd import open_workbook
+from requests.auth import HTTPBasicAuth
 
-cursor, connection = db.rds_connect("aurora")
-query_search =  """
-                select 
-                    company_name
-                from public.search_linkedin
-                where
-                    company_linkedin_url is null
-                limit 1
-                """
-cursor.execute(query_search)
-result = cursor.fetchall()
+header_initial = {'Authorization': '3e25ec8c-88bf-4354-bdc6-b16ae0ed4843'}
+header_final = {'Authorization': 'f41d4dd0-ab4b-4d05-b931-e41c8b2cb795'}
+topics = ['technology', 'sales software', 'sales acceleration software', 'sales intelligence software']
+m_dict = dict()
 
+wb = open_workbook(os.getcwd() + '//xant_domains.xlsx')
+for sheet in wb.sheets():
+    number_of_rows = sheet.nrows
+    number_of_columns = sheet.ncols
 
-for res in result:
-    print(res[0])
-    company = str(res[0]).replace(' ', '%20')
-    query = 'site:linkedin.com/company/ AND "{}"'.format(company)
-    #headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
-    headers = {'User-Agent': 'My User Agent 1.0'}
-    url = 'https://www.google.com/search?q=' + query
-    resp = requests.get(url, headers=headers)
+    rows = []
+    for row in range(1, number_of_rows):
+        values = []
+        for col in range(number_of_columns):
+            value = (sheet.cell(row,col).value)
+            try:
+                value = str(int(value))
+            except ValueError:
+                pass
+            finally:
+                values.append(value)
+        domain = values[1   ]
+        postal = values[2]
+        m_dict[domain] = postal
 
-    #print(resp.content)
-    #json_text = json.dumps(str(resp.content.text))
-    print(json.dumps(resp.text))
-    '''
-    soup = BeautifulSoup(resp.content, "html.parser")
-    print(soup)
-    for searchWrapper in soup.find_all('h3', {'class':'r'}):
-        print(searchWrapper)
-        url = searchWrapper.find('a')["href"]
-        print(url)
+for k, v in m_dict.items():
+    domain = k
+    postal = v
 
-       
-        query_update =  """
-                        update public.search_linkedin as t1 
-                        set company_linkedin_url = \'{}\' 
-                        where 
-                            company_linkedin_url is null 
-                            and upper(trim(company_name)) = \'{}\'
-                        """.format(company_linkedin_url, company_name)
-        cursor.execute(query_update)
-        connection.commit()
-        '''        
+    resp = requests.get('https://api3.180bytwo.com/api/v1/match?name={}&zip={}'.format(domain, postal), headers=header_initial)
+    
+    for body in resp.json()['body']:
+        accountlink_id = body['accountlink_id']
+        r_key = domain + '|' + accountlink_id
+        for topic in topics:
+            resp2 = requests.get('https://api3.180bytwo.com/api/v1/intent?accountLinkId={}&topic={}'.format(accountlink_id, topic), headers=header_final)
+            for score in resp2.json()['body']['scores']:
+                print(domain, accountlink_id, topic, score['score'])

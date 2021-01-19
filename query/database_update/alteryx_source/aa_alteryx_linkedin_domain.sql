@@ -4,8 +4,7 @@ from {0} as t2
 where
 	t1.company_data_status = 'Reverify'
 	and (
-		t1.company_linkedin_url is null
-		or t1.company_linkedin_url = ''
+		t1.company_linkedin_url = ''
 		or trim(t1.company_linkedin_url) = ''
 		)
 	and t2.company_linkedin_url is not null
