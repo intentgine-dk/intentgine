@@ -12,12 +12,11 @@ set revenue_range_id = CASE
 						THEN '5ff7f0e8-4e63-456d-9559-1efcacc29a9c'::uuid
 						WHEN t2.company_revenue_bucket = '$1+ Billion'
 						THEN '9c633c91-d675-4ae8-bab3-8c0d4b5110f8'::uuid
-						ELSE NULL
+						ELSE t1.revenue_range_id
 					END
 from {0} as t2
 where
 	t1.company_data_status = 'Reverify'
-	and t1.revenue_range_id is null
 	and t2.company_revenue_bucket is not null
 	and t2.company_revenue_bucket != ''
 	and trim(t2.company_revenue_bucket) != ''

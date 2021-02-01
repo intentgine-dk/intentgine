@@ -48,5 +48,5 @@ INSERT INTO ig_production.company (
         AND TRIM(cmp.phone_number) != ''
         AND TRIM(cmp.ip_address) != ''
         AND TRIM(cmp.mx_ip_address) != ''
-        AND cmp.phone_number NOT IN ('WIT Software', 'Ubisoft Quebec', 'President', 'Pirtek UK Ltd', 'phone_office', 'Oil & Energy', 'Frankly Inc', 'Farming', 'dwwdqdwq', 'dvdxdzS', 'dfdf', '0', '0000000000')
+		AND cmp.phone_number NOT IN ('WIT Software', 'Ubisoft Quebec', 'President', 'Pirtek UK Ltd', 'phone_office', 'Oil & Energy', 'Frankly Inc', 'Farming', 'dwwdqdwq', 'dvdxdzS', 'dfdf', '0', '0000000000')
 )

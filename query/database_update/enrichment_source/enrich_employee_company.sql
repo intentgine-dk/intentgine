@@ -16,12 +16,11 @@ set employee_size_id = CASE
 							then '47955320-a21e-4ea9-9905-84f519477fd0'::uuid
 							when company_employees::numeric > 10000
 							then '432b4eeb-a106-48b0-8b29-ad07153db437'::uuid
-							else NULL
+							else t1.employee_size_id
 						END			
 from {0} as t2
 where
 	t1.company_data_status = 'Reverify'
-	and t1.employee_size_id is null
 	and t2.company_employees is not null
 	and t2.company_employees != '0'
 	and upper(trim(t1.company_name)) = upper(trim(t2.company_name));
